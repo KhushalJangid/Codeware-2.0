@@ -1,10 +1,10 @@
-<div align="center" id="top"> 
+<!-- <div align="center" id="top"> 
   <img src="./.github/app.gif" alt="codeware-2.0" />
 
   &#xa0;
 
-  <!-- <a href="https://facesearch.netlify.app">Demo</a> -->
-</div>
+  <!-- <a href="https://facesearch.netlify.app">Demo</a> 
+</div> -->
 
 <h1 align="center">CodeWare 2.0</h1>
 
@@ -38,15 +38,18 @@
 
 ## :dart: About ##
 
-This is an online code editor that works on Django(Python) in backend, Made for Tech-a-Thon 2022 at JECRC University. Supports C, C++, Python, JS, Dart programming languages
+Codeware 2.0 is the upgraded version of <a href="https://github.com/KhushalJangid/codeware" target="_blank">codeware</a>, with Multi-tab Editor, Terminal emulation and responsive UI with Light & Dark Mode.
 
 ## :sparkles: Features ##
 
-:heavy_check_mark: Write & Edit code online\
-:heavy_check_mark: Compile code on the go\
-:heavy_check_mark: Open & Edit local code files\
-:heavy_check_mark: Download code files to your local machine\
-:heavy_check_mark: Cloud Save for files on the server
+:white_check_mark: Write & Edit code online\
+:white_check_mark: Compile code on the go with IO Piping using Websockets\
+:white_check_mark: Open & Edit local code files\
+:white_check_mark: Multi Tab editing\
+:white_check_mark: Responsive UI for Mobile and Desktop Screen sizes\
+:white_check_mark: Light and Dark mode (more themes under progress)\
+:white_check_mark: Download code files to your local machine\
+:white_check_mark: Cloud Save for files on the server
 
 ## :rocket: Technologies ##
 
@@ -54,7 +57,7 @@ The following tools were used in this project:
 
 - [Django](https://djangoproject.com/)
 - [Python](https://python.org)
-- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [Flutter](https://flutter.dev/)
 
 
 ## :white_check_mark: Requirements ##
@@ -64,12 +67,14 @@ It also requires compilers for supported languages [C/C++, JavaScript, Java, Pyt
 
 ## :checkered_flag: Starting ##
 
+To run the Backend server
+
 ```bash
 # Clone this project
 $ git clone https://github.com/KhushalJangid/codeware-2.0
 
 # Access
-$ cd codeware-2.0
+$ cd codeware-2.0/backend
 
 # Activate any virtual environment (if any)
 
@@ -77,7 +82,7 @@ $ cd codeware-2.0
 $ pip install -r requirements.txt
 
 # Run the project
-$ python manage.py runserver
+$ uvicorn codeware.asgi:application --loop uvloop
 
 # The server will initialize in the <http://localhost:8000>
 ```
@@ -89,7 +94,7 @@ Alternatively, Run using docker (No need to have compilers on local machine):
 $ git clone https://github.com/KhushalJangid/codeware-2.0
 
 # Access
-$ cd codeware-2.0
+$ cd codeware-2.0/backend
 
 # Build Docker image
 $ docker image build -t codeware-api .
@@ -98,6 +103,20 @@ $ docker image build -t codeware-api .
 $ docker run -p 8000:8000 codeware-api
 
 # The server will initialize in the <http://localhost:8000>
+```
+
+For Frontend:
+
+```bash
+# Change directory
+$ cd codeware-2.0/frontend
+
+# Resolve dependencies
+$ flutter pub get
+
+# Run project
+$ flutter run
+
 ```
 
 ## :memo: License ##
