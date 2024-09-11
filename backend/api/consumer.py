@@ -6,7 +6,6 @@ from os import kill, path, remove
 from api.exceptions import CompilationError
 from channels.generic.websocket import AsyncWebsocketConsumer
 import subprocess
-# from subprocess import PIPE
 from asyncio.subprocess import Process
 
 from codeware.settings import BASE_DIR
