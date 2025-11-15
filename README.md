@@ -113,9 +113,9 @@ $ flutter run
 ```
 
 ## :fireworks: Screenshots ##
-<img src="./screenshots/Screenshot1.png" alt="Codeware" />
-<img src="./screenshots/Screenshot2.png" alt="Codeware" />
-<img src="./screenshots/Screenshot3.png" alt="Codeware" />
+<img src="./Screenshots/Screenshot1.png" alt="Codeware" />
+<img src="./Screenshots/Screenshot2.png" alt="Codeware" />
+<img src="./Screenshots/Screenshot3.png" alt="Codeware" />
 
 ## :memo: License ##
 
