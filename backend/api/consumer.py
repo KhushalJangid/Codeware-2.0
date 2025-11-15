@@ -103,7 +103,7 @@ class CompilerConsumer(AsyncWebsocketConsumer):
             await self.close()
         
             
-async def create_process(code:str,lang:str)->tuple[list[str],Process]:
+async def create_process(code:str,lang:str)->tuple[list[str],Process] | None:
     _filename = f'test_{uuid4()}.{lang}'
     _fileloc = path.join(BASE_DIR,"media","cache",_filename)
     with open(_fileloc, 'w') as fp:
