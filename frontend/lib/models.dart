@@ -44,8 +44,6 @@ extension EditorMode on FileType {
         return go;
       case FileType.dart:
         return dart;
-      default:
-        return cpp;
     }
   }
 }
@@ -67,8 +65,6 @@ extension FileExtension on FileType {
         return "go";
       case FileType.dart:
         return "dart";
-      default:
-        return "txt";
     }
   }
 
@@ -88,8 +84,6 @@ extension FileExtension on FileType {
         return SimpleIcons.go;
       case FileType.dart:
         return SimpleIcons.dart;
-      default:
-        return SimpleIcons.python;
     }
   }
 
@@ -132,8 +126,6 @@ func main(){
         return """void main(){
     print("Hello World");
 }""";
-      default:
-        return """print("hello world")""";
     }
   }
 }

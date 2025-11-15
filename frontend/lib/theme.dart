@@ -40,10 +40,10 @@ ThemeData lightTheme(BuildContext context) {
       tertiary: const Color(0xfff8f8f8),
     ),
     appBarTheme: AppBarTheme(
-      color: Colors.white,
+      backgroundColor: Colors.white,
       shadowColor: Colors.grey.shade300,
     ),
-    bottomAppBarTheme: BottomAppBarTheme(
+    bottomAppBarTheme: BottomAppBarThemeData(
       color: Colors.white,
       shadowColor: Colors.grey.shade300,
     ),
@@ -116,11 +116,11 @@ ThemeData darkTheme(BuildContext context) {
       onTertiary: Colors.grey.shade400,
     ),
     appBarTheme: AppBarTheme(
-      color: primaryBg,
+      backgroundColor: primaryBg,
       shadowColor: Colors.grey.shade900,
     ),
     scaffoldBackgroundColor: const Color(0xff111111),
-    bottomAppBarTheme: BottomAppBarTheme(
+    bottomAppBarTheme: BottomAppBarThemeData(
       color: primaryBg,
       shadowColor: Colors.grey.shade900,
     ),
