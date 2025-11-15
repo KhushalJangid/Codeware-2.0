@@ -222,6 +222,7 @@ class FilesView(APIView):
     
     def put(self,request):
         file_id = request.data.get('file_id')
+        print(bytes(request.data['file']).decode())
         try:
             if file_id != -1:
                 query = Files.objects.get(user=request.user,id=file_id)
