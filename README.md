@@ -1,11 +1,3 @@
-<!-- <div align="center" id="top"> 
-  <img src="./.github/app.gif" alt="codeware-2.0" />
-
-  &#xa0;
-
-  <!-- <a href="https://facesearch.netlify.app">Demo</a> 
-</div> -->
-
 <h1 align="center">CodeWare 2.0</h1>
 
 <p align="center">
@@ -30,6 +22,7 @@
   <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
   <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
   <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
+  <a href="#fireworks-screenshots">Screenshots</a> &#xa0; | &#xa0;
   <a href="#memo-license">License</a> &#xa0; | &#xa0;
   <a href="https://github.com/KhushalJangid" target="_blank">Author</a>
 </p>
@@ -38,7 +31,7 @@
 
 ## :dart: About ##
 
-Codeware 2.0 is the upgraded version of <a href="https://github.com/KhushalJangid/codeware" target="_blank">codeware</a>, with Multi-tab Editor, Terminal emulation and responsive UI with Light & Dark Mode.
+Codeware 2.0 is the modified version of <a href="https://github.com/KhushalJangid/codeware" target="_blank">codeware</a>, with Multi-tab Editor, Terminal emulation and responsive UI with Light & Dark Mode.
 
 ## :sparkles: Features ##
 
@@ -118,6 +111,11 @@ $ flutter pub get
 $ flutter run
 
 ```
+
+## :fireworks: Screenshots ##
+<img src="./screenshots/Screenshot1.png" alt="Codeware" />
+<img src="./screenshots/Screenshot2.png" alt="Codeware" />
+<img src="./screenshots/Screenshot3.png" alt="Codeware" />
 
 ## :memo: License ##
 
