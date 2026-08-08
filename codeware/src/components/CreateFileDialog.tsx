@@ -18,6 +18,11 @@ import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutl
 import type { FileType } from '../types'
 import { useAppTheme } from '../contexts/ThemeContext'
 import { accent } from '../contexts/ThemeContext'
+import { FaPython, FaJs, FaJava, FaGolang, FaDartLang, FaFile } from 'react-icons/fa6'
+import {
+  SiCplusplus,
+  SiC,
+} from "@icons-pack/react-simple-icons";
 
 // ─── Language config ────────────────────────────────────────────────────────
 
@@ -27,18 +32,17 @@ type LangOption = {
   ext: string
   color: string
   bg: string
-  badge: string
-  icon: string
+  icon: React.ReactNode
 }
 
 const LANGUAGES: LangOption[] = [
-  { fileType: 'python',     label: 'Python',      ext: '.py',   color: '#60a5fa', bg: 'rgba(96,165,250,0.12)',   badge: 'PY',   icon: '🐍' },
-  { fileType: 'javascript', label: 'JavaScript',  ext: '.js',   color: '#fbbf24', bg: 'rgba(251,191,36,0.12)',  badge: 'JS',   icon: '🟨' },
-  { fileType: 'java',       label: 'Java',        ext: '.java', color: '#fb923c', bg: 'rgba(251,146,60,0.12)',  badge: 'JV',   icon: '☕' },
-  { fileType: 'go',         label: 'Go',          ext: '.go',   color: '#34d399', bg: 'rgba(52,211,153,0.12)',  badge: 'GO',   icon: '🐹' },
-  { fileType: 'c',          label: 'C',           ext: '.c',    color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', badge: 'C',    icon: '⚙️' },
-  { fileType: 'cpp',        label: 'C++',         ext: '.cpp',  color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', badge: 'C++',  icon: '⚙️' },
-  { fileType: 'dart',       label: 'Dart',        ext: '.dart', color: '#38bdf8', bg: 'rgba(56,189,248,0.12)',  badge: 'DT',   icon: '🎯' },
+  { fileType: 'python', label: 'Python', ext: '.py', color: '#60a5fa', bg: 'rgba(96,165,250,0.12)', icon: <FaPython /> },
+  { fileType: 'javascript', label: 'JavaScript', ext: '.js', color: '#fbbf24', bg: 'rgba(251,191,36,0.12)', icon: <FaJs /> },
+  { fileType: 'java', label: 'Java', ext: '.java', color: '#fb923c', bg: 'rgba(251,146,60,0.12)', icon: <FaJava /> },
+  { fileType: 'go', label: 'Go', ext: '.go', color: '#34d399', bg: 'rgba(52,211,153,0.12)', icon: <FaGolang /> },
+  { fileType: 'c', label: 'C', ext: '.c', color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', icon: <SiCplusplus /> },
+  { fileType: 'cpp', label: 'C++', ext: '.cpp', color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', icon: <SiC size={18} /> },
+  { fileType: 'dart', label: 'Dart', ext: '.dart', color: '#38bdf8', bg: 'rgba(56,189,248,0.12)', icon: <FaDartLang /> },
 ]
 
 // ─── Props ───────────────────────────────────────────────────────────────────
@@ -148,8 +152,9 @@ export function CreateFileDialog(props: {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: 18,
             }}>
-              📄
+              <FaFile />
             </Box>
+
             <Box>
               <Typography sx={{ fontWeight: 700, fontSize: '1rem', color: '#fff', letterSpacing: '-0.01em' }}>
                 New File
@@ -210,9 +215,7 @@ export function CreateFileDialog(props: {
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       flexShrink: 0,
                     }}>
-                      <Typography sx={{ fontSize: '0.48rem', fontWeight: 700, color: l.color, fontFamily: 'monospace' }}>
-                        {l.badge}
-                      </Typography>
+                      {l.icon}
                     </Box>
                     <Typography sx={{ fontSize: '0.8125rem', fontWeight: 500 }}>
                       {l.label}
@@ -233,9 +236,7 @@ export function CreateFileDialog(props: {
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       flexShrink: 0,
                     }}>
-                      <Typography sx={{ fontSize: '0.5rem', fontWeight: 700, color: l.color, fontFamily: 'monospace' }}>
-                        {l.badge}
-                      </Typography>
+                      {l.icon}
                     </Box>
                     <Box sx={{ flex: 1 }}>
                       <Typography sx={{ fontSize: '0.8125rem', fontWeight: 500 }}>
@@ -310,9 +311,7 @@ export function CreateFileDialog(props: {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               flexShrink: 0,
             }}>
-              <Typography sx={{ fontSize: '0.52rem', fontWeight: 700, color: lang.color, fontFamily: 'monospace' }}>
-                {lang.badge}
-              </Typography>
+              {lang.icon}
             </Box>
             <Box sx={{ flex: 1, minWidth: 0 }}>
               <Typography sx={{

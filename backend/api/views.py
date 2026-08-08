@@ -222,12 +222,12 @@ class FilesView(APIView):
     
     def put(self,request):
         file_id = request.data.get('file_id')
-        print(bytes(request.data['file']).decode())
         try:
             if file_id != -1:
                 query = Files.objects.get(user=request.user,id=file_id)
-                query.file.open("w").write(bytes(request.data['file']).decode())
-                query.save()
+                file = query.file.open("w")
+                file.write(bytes(request.data['file']).decode())
+                file.close()
                 return Response({"file_id":file_id,"updated":True})
             else:
                 data = request.data

@@ -76,7 +76,7 @@ $ source venv/bin/activate
 $ poetry install
 
 # Run the project
-$ uvicorn --host 0.0.0.0 codeware.asgi:application --loop uvloop
+$ python runner.py
 
 # The server will initialize in the <http://localhost:8000>
 ```

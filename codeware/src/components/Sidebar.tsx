@@ -21,26 +21,34 @@ import type { CodeFile } from '../types'
 import { useAppTheme } from '../contexts/ThemeContext'
 import { accent } from '../contexts/ThemeContext'
 import { useNavigate } from 'react-router-dom'
+import { FaPython, FaFile, FaJava, FaJs, FaGolang, FaDartLang } from "react-icons/fa6";
+
 
 /** Returns a color and short label based on file extension */
-function fileLanguageStyle(name: string): { color: string; bg: string; label: string } {
+function fileLanguageStyle(name: string): React.ReactNode {
   const ext = name.split('.').pop()?.toLowerCase() ?? ''
-  const map: Record<string, { color: string; bg: string; label: string }> = {
-    py: { color: '#60a5fa', bg: 'rgba(96,165,250,0.12)', label: 'PY' },
-    js: { color: '#fbbf24', bg: 'rgba(251,191,36,0.12)', label: 'JS' },
-    ts: { color: '#38bdf8', bg: 'rgba(56,189,248,0.12)', label: 'TS' },
-    tsx: { color: '#38bdf8', bg: 'rgba(56,189,248,0.12)', label: 'TSX' },
-    jsx: { color: '#fbbf24', bg: 'rgba(251,191,36,0.12)', label: 'JSX' },
-    java: { color: '#fb923c', bg: 'rgba(251,146,60,0.12)', label: 'JV' },
-    c: { color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', label: 'C' },
-    cpp: { color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', label: 'C++' },
-    cs: { color: '#4ade80', bg: 'rgba(74,222,128,0.12)', label: 'C#' },
-    go: { color: '#34d399', bg: 'rgba(52,211,153,0.12)', label: 'GO' },
-    rs: { color: '#fb923c', bg: 'rgba(251,146,60,0.12)', label: 'RS' },
-    html: { color: '#f87171', bg: 'rgba(248,113,113,0.12)', label: 'HTML' },
-    css: { color: '#818cf8', bg: 'rgba(129,140,248,0.12)', label: 'CSS' },
+  const map: Record<string, React.ReactNode> = {
+    py: <FaPython />,
+    java: <FaJava />,
+    js: <FaJs />,
+    go: <FaGolang />,
+    dart: <FaDartLang />,
+
   }
-  return map[ext] ?? { color: '#8b8b9a', bg: 'rgba(139,139,154,0.1)', label: ext.toUpperCase().slice(0, 3) || 'TXT' }
+  //   js: { color: '#fbbf24', bg: 'rgba(251,191,36,0.12)', label: 'JS' },
+  //   ts: { color: '#38bdf8', bg: 'rgba(40, 47, 49, 0.12)', label: 'TS' },
+  //   tsx: { color: '#38bdf8', bg: 'rgba(56,189,248,0.12)', label: 'TSX' },
+  //   jsx: { color: '#fbbf24', bg: 'rgba(251,191,36,0.12)', label: 'JSX' },
+  //   java: { color: '#fb923c', bg: 'rgba(251,146,60,0.12)', label: 'JV' },
+  //   c: { color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', label: 'C' },
+  //   cpp: { color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', label: 'C++' },
+  //   cs: { color: '#4ade80', bg: 'rgba(74,222,128,0.12)', label: 'C#' },
+  //   go: { color: '#34d399', bg: 'rgba(52,211,153,0.12)', label: 'GO' },
+  //   rs: { color: '#fb923c', bg: 'rgba(251,146,60,0.12)', label: 'RS' },
+  //   html: { color: '#f87171', bg: 'rgba(248,113,113,0.12)', label: 'HTML' },
+  //   css: { color: '#818cf8', bg: 'rgba(129,140,248,0.12)', label: 'CSS' },
+  // }
+  return map[ext] ?? <FaFile />;
 }
 
 export function Sidebar(props: {
@@ -185,7 +193,7 @@ export function Sidebar(props: {
         ) : (
           <List dense sx={{ py: 0 }}>
             {files.map((f) => {
-              const lang = fileLanguageStyle(f.name)
+              const fileIcon = fileLanguageStyle(f.name)
               return (
                 <ListItemButton
                   key={f.id}
@@ -207,7 +215,7 @@ export function Sidebar(props: {
                       width: 28,
                       height: 28,
                       borderRadius: '6px',
-                      backgroundColor: lang.bg,
+                      backgroundColor: 'rgba(139,139,154,0.1)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -215,7 +223,9 @@ export function Sidebar(props: {
                       mr: 1.25,
                     }}
                   >
-                    <Typography
+                    {fileIcon}
+
+                    {/* <Typography
                       sx={{
                         fontSize: '0.5rem',
                         fontWeight: 700,
@@ -225,7 +235,7 @@ export function Sidebar(props: {
                       }}
                     >
                       {lang.label}
-                    </Typography>
+                    </Typography> */}
                   </Box>
 
                   <Box sx={{ flex: 1, minWidth: 0 }}>

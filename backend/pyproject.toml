@@ -21,6 +21,7 @@ wsproto = "^1.3.1"
 [tool.poetry.group.deployment.dependencies]
 uvicorn = "^0.38.0"
 uvloop = "^0.22.1"
+watchfiles = "^1.2.0"
 
 [build-system]
 requires = ["poetry-core"]
