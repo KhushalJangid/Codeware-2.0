@@ -70,12 +70,13 @@ $ git clone https://github.com/KhushalJangid/codeware-2.0
 $ cd codeware-2.0/backend
 
 # Activate any virtual environment (if any)
+$ source venv/bin/activate
 
-# Install dependencies
-$ pip install -r requirements.txt
+# Install dependency
+$ poetry install
 
 # Run the project
-$ uvicorn codeware.asgi:application --loop uvloop
+$ uvicorn --host 0.0.0.0 codeware.asgi:application --loop uvloop
 
 # The server will initialize in the <http://localhost:8000>
 ```

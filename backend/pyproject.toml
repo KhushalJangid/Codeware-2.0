@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["KhushalJangid <kjangid897@gmail.com>"]
 readme = "README.md"
+package-mode = false
 packages = [{include = "codeware2"}]
 
 [tool.poetry.dependencies]
