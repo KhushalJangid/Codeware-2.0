@@ -1,4 +1,8 @@
+from pathlib import Path
 import uvicorn
+
+BASE_DIR = Path(__file__).resolve().parent
+MEDIA_DIR = str(BASE_DIR / "media")
 
 if __name__ == "__main__":
     uvicorn.run(
@@ -7,5 +11,6 @@ if __name__ == "__main__":
         port=8000,
         reload=True,
         loop="uvloop",
-        reload_excludes=["*/media/*"],
+        reload_excludes=[MEDIA_DIR, "*/media/*", "*/media/**", "media/**"],
     )
+

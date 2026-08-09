@@ -44,3 +44,10 @@ export type AuthSession = {
   refresh: string
 }
 
+export type CursorPos = {
+  line: number
+  column: number
+  selectedCount: number
+}
+
+

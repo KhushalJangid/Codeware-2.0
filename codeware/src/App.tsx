@@ -1,14 +1,15 @@
 import './App.css'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Box } from '@mui/material'
-import { AppShell } from './components/AppShell'
+// import { AppShell } from './components/AppShell'
 import { Sidebar } from './components/Sidebar'
 import { TabBar } from './components/TabBar'
 import { EditorPane } from './components/EditorPane'
 import { ConsolePane } from './components/ConsolePane'
+import { StatusBar } from './components/StatusBar'
 
 import { CreateFileDialog, type CreateFileResult } from './components/CreateFileDialog'
-import type { CodeFile, FileTab } from './types'
+import type { CodeFile, CursorPos, FileTab, FileType } from './types'
 import { useAuth } from './contexts/AuthContext'
 import { useAppTheme } from './contexts/ThemeContext'
 import { boilerplate, downloadTextFile, fileTypeFromName, runnerLangFromFileType } from './utils/files'
@@ -26,8 +27,14 @@ function App() {
   const [activeIndex, setActiveIndex] = useState(-1)
 
   const [consoleHeight, setConsoleHeight] = useState(220)
-  const [consoleVisible] = useState(true)
+  const [consoleVisible, setConsoleVisible] = useState(true)
   const [runner, setRunner] = useState<{ lang: ReturnType<typeof runnerLangFromFileType>; code: string } | null>(null)
+
+  // Status Bar state
+  const [cursorPos, setCursorPos] = useState<CursorPos>({ line: 1, column: 1, selectedCount: 0 })
+  const [tabSize, setTabSize] = useState<number>(2)
+  const [encoding, setEncoding] = useState<string>('UTF-8')
+  const [eol, setEol] = useState<'LF' | 'CRLF'>('LF')
 
   const [createFileOpen, setCreateFileOpen] = useState(false)
   const [createFileMode, setCreateFileMode] = useState<'server' | 'local'>('local')
@@ -194,6 +201,18 @@ function App() {
     })
   }
 
+  function handleLanguageChange(newLang: FileType) {
+    if (activeIndex < 0) return
+    setTabs((prev) => {
+      const copy = [...prev]
+      copy[activeIndex] = {
+        ...copy[activeIndex],
+        fileType: newLang,
+      }
+      return copy
+    })
+  }
+
   function uploadLocalClick() {
     fileInputRef.current?.click()
   }
@@ -239,89 +258,109 @@ function App() {
 
   return (
     <div className="cw-root">
-      <AppShell>
+      {/* <AppShell> */}
+      <Box
+        sx={{
+          flex: 1,
+          minHeight: 0,
+          minWidth: 0,
+          overflow: 'hidden',
+          display: 'grid',
+          gridTemplateColumns: sidebarOpen ? '340px 1fr' : '0px 1fr',
+          transition: 'grid-template-columns 180ms ease',
+        }}
+      >
+        <Sidebar
+          open={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          files={files}
+          loading={filesLoading}
+          isAuthenticated={isAuthenticated}
+
+          onRefresh={refreshFiles}
+          onOpenFile={(f) => {
+            void openServerFile(f)
+          }}
+          onCreateServerFile={() => openCreateDialog('server')}
+          onRenameFile={(f) => void renameServerFile(f)}
+          onDeleteFile={(f) => void deleteServerFile(f)}
+          onDownloadFile={(f) => void downloadServerFile(f)}
+        />
+
         <Box
           sx={{
-            height: '100%',
             minHeight: 0,
             minWidth: 0,
+            height: '100%',
             overflow: 'hidden',
-            display: 'grid',
-            gridTemplateColumns: sidebarOpen ? '340px 1fr' : '0px 1fr',
-            transition: 'grid-template-columns 180ms ease',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
-          <Sidebar
-            open={sidebarOpen}
-            onClose={() => setSidebarOpen(false)}
-            files={files}
-            loading={filesLoading}
-            isAuthenticated={isAuthenticated}
-
-            onRefresh={refreshFiles}
-            onOpenFile={(f) => {
-              void openServerFile(f)
-            }}
-            onCreateServerFile={() => openCreateDialog('server')}
-            onRenameFile={(f) => void renameServerFile(f)}
-            onDeleteFile={(f) => void deleteServerFile(f)}
-            onDownloadFile={(f) => void downloadServerFile(f)}
+          <TabBar
+            tabs={tabs}
+            activeIndex={activeIndex}
+            onSwitch={setActiveIndex}
+            onClose={closeTab}
+            onRun={runActive}
+            onSave={() => void saveActive()}
+            onUploadLocal={uploadLocalClick}
+            onDownload={downloadActive}
+            onCreateLocal={() => openCreateDialog('local')}
+            onOpenSidebar={() => setSidebarOpen((s) => !s)}
+            canSave={canSave}
           />
 
-          <Box
-            sx={{
-              minHeight: 0,
-              minWidth: 0,
-              height: '100%',
-              overflow: 'hidden',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <TabBar
-              tabs={tabs}
-              activeIndex={activeIndex}
-              onSwitch={setActiveIndex}
-              onClose={closeTab}
-              onRun={runActive}
-              onSave={() => void saveActive()}
-              onUploadLocal={uploadLocalClick}
-              onDownload={downloadActive}
-              onCreateLocal={() => openCreateDialog('local')}
-              onOpenSidebar={() => setSidebarOpen((s) => !s)}
-              canSave={canSave}
-            />
-
-            <Box sx={{ flex: 1, minHeight: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-              <Box sx={{ flex: 1, minHeight: 0 }}>
-                <EditorPane
-                  tab={activeTab}
-                  onChange={onEditorChange}
-                  themeMode={mode}
-                  layoutSignal={`${sidebarOpen}-${consoleHeight}-${activeIndex}-${mode}`}
-                />
-              </Box>
-              <ConsolePane
-                visible={consoleVisible}
-                height={consoleHeight}
-                onResizeStart={onResizeStart}
-                runner={runner}
+          <Box sx={{ flex: 1, minHeight: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ flex: 1, minHeight: 0 }}>
+              <EditorPane
+                tab={activeTab}
+                onChange={onEditorChange}
+                themeMode={mode}
+                layoutSignal={`${sidebarOpen}-${consoleHeight}-${activeIndex}-${mode}`}
+                onCursorChange={setCursorPos}
+                tabSize={tabSize}
+                eol={eol}
               />
             </Box>
+            <ConsolePane
+              visible={consoleVisible}
+              height={consoleHeight}
+              onResizeStart={onResizeStart}
+              runner={runner}
+            />
           </Box>
         </Box>
+      </Box>
 
-        <input
-          ref={fileInputRef}
-          type="file"
-          style={{ display: 'none' }}
-          onChange={(e) => {
-            const f = e.target.files?.[0]
-            if (f) void onUploadFileSelected(f)
-            e.target.value = ''
-          }}
-        />
-      </AppShell>
+      <StatusBar
+        cursorPos={cursorPos}
+        tabSize={tabSize}
+        onTabSizeChange={setTabSize}
+        encoding={encoding}
+        onEncodingChange={setEncoding}
+        eol={eol}
+        onEolChange={setEol}
+        activeLanguage={activeTab?.fileType ?? null}
+        onLanguageChange={handleLanguageChange}
+        onToggleSidebar={() => setSidebarOpen((s) => !s)}
+        onToggleConsole={() => setConsoleVisible((v) => !v)}
+        sidebarOpen={sidebarOpen}
+        consoleVisible={consoleVisible}
+      />
+      {/* </AppShell> */}
+
+      <input
+        ref={fileInputRef}
+        id="console-input"
+        type="file"
+        style={{ display: 'none' }}
+        onChange={(e) => {
+          const f = e.target.files?.[0]
+          if (f) void onUploadFileSelected(f)
+          e.target.value = ''
+        }}
+      />
 
       <CreateFileDialog
         open={createFileOpen}
@@ -332,5 +371,6 @@ function App() {
     </div>
   )
 }
+
 
 export default App

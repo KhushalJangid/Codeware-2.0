@@ -77,10 +77,10 @@ export function CreateFileDialog(props: {
   useEffect(() => {
     if (!open) return
     setFileName((prev) => {
-      if (!prev) return `main${lang.ext}`
+      if (!prev) return `main`
       // Replace existing extension with new one
       const withoutExt = prev.replace(/\.[^.]+$/, '')
-      return `${withoutExt}${lang.ext}`
+      return `${withoutExt}`
     })
   }, [selectedLang, lang.ext, open])
 
@@ -88,7 +88,7 @@ export function CreateFileDialog(props: {
   useEffect(() => {
     if (open) {
       setSelectedLang('python')
-      setFileName('main.py')
+      setFileName('main')
       setError(null)
       setBusy(false)
     }
@@ -106,7 +106,7 @@ export function CreateFileDialog(props: {
     setError(null)
     setBusy(true)
     try {
-      await onConfirm({ name: fileName.trim(), fileType: selectedLang })
+      await onConfirm({ name: fileName.trim() + lang.ext, fileType: selectedLang })
       onClose()
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e))
@@ -275,7 +275,7 @@ export function CreateFileDialog(props: {
                 setError(null)
               }}
               autoFocus
-              placeholder={`e.g. main${lang.ext}`}
+              placeholder={`e.g. main`}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -323,7 +323,7 @@ export function CreateFileDialog(props: {
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
               }}>
-                {fileName || `main${lang.ext}`}
+                {`${fileName || "main"}${lang.ext}`}
               </Typography>
               <Typography sx={{ fontSize: '0.68rem', color: isDark ? '#4a4a58' : '#b0b0c0' }}>
                 {lang.label} · {lang.ext}

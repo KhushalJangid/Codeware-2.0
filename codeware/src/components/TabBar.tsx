@@ -57,7 +57,7 @@ export function TabBar(props: {
         display: 'flex',
         alignItems: 'center',
         gap: 0.5,
-        minHeight: 44,
+        minHeight: 40,
         backgroundColor: isDark ? '#0d0d0f' : '#ffffff',
       })}
     >
@@ -80,7 +80,7 @@ export function TabBar(props: {
             variant="scrollable"
             scrollButtons="auto"
             sx={{
-              minHeight: 44,
+              minHeight: 40,
               backgroundColor: 'transparent',
               '& .MuiTabs-scroller': { backgroundColor: 'transparent' },
               '& .MuiTabScrollButton-root': {
@@ -136,6 +136,7 @@ export function TabBar(props: {
 
                     {/* Close button — visible on tab hover or active */}
                     <IconButton
+                      component="span"
                       size="small"
                       onClick={(e) => {
                         e.stopPropagation()
@@ -159,7 +160,7 @@ export function TabBar(props: {
                     </IconButton>
                   </Stack>
                 }
-                sx={{ minHeight: 44, px: 1.25, py: 0, backgroundColor: 'transparent' }}
+                sx={{ minHeight: 40, px: 1.25, py: 0, backgroundColor: 'transparent' }}
               />
             ))}
           </Tabs>

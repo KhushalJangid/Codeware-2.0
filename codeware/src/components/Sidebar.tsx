@@ -96,7 +96,7 @@ export function Sidebar(props: {
       })}
     >
       {/* Header */}
-      <Box sx={{ px: 1.5, py: 1.25 }}>
+      <Box sx={{ px: 1.5, minHeight: 40, alignContent: 'center' }}>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Stack direction="row" spacing={0.5} alignItems="center">
             <IconButton onClick={onClose} size="small" sx={{ color: isDark ? '#8b8b9a' : '#6b6b7b' }}>

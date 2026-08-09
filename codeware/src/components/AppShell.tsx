@@ -1,4 +1,4 @@
-import { useState, type PropsWithChildren } from 'react'
+import { type PropsWithChildren } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   AppBar,
@@ -11,10 +11,6 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import DarkModeIcon from '@mui/icons-material/DarkMode'
-import LightModeIcon from '@mui/icons-material/LightMode'
-import FullscreenIcon from '@mui/icons-material/Fullscreen'
-import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'
 import LogoutIcon from '@mui/icons-material/Logout'
 import LoginIcon from '@mui/icons-material/Login'
 import { useAppTheme } from '../contexts/ThemeContext'
@@ -23,20 +19,9 @@ import { accent } from '../contexts/ThemeContext'
 
 export function AppShell({ children }: PropsWithChildren) {
   const navigate = useNavigate()
-  const { mode, toggle } = useAppTheme()
+  const { mode } = useAppTheme()
   const { user, isAuthenticated, logout } = useAuth()
-  const [isFullscreen, setIsFullscreen] = useState(Boolean(document.fullscreenElement))
   const isDark = mode === 'dark'
-
-  async function toggleFullscreen() {
-    if (document.fullscreenElement) {
-      await document.exitFullscreen()
-      setIsFullscreen(false)
-      return
-    }
-    await document.documentElement.requestFullscreen()
-    setIsFullscreen(true)
-  }
 
   return (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -112,36 +97,6 @@ export function AppShell({ children }: PropsWithChildren) {
               />
             ) : null}
 
-            <Tooltip title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
-              <IconButton
-                color="inherit"
-                onClick={toggleFullscreen}
-                size="small"
-                sx={{ color: isDark ? '#8b8b9a' : '#6b6b7b' }}
-              >
-                {isFullscreen ? (
-                  <FullscreenExitIcon sx={{ fontSize: 18 }} />
-                ) : (
-                  <FullscreenIcon sx={{ fontSize: 18 }} />
-                )}
-              </IconButton>
-            </Tooltip>
-
-            <Tooltip title={mode === 'dark' ? 'Light mode' : 'Dark mode'}>
-              <IconButton
-                color="inherit"
-                onClick={toggle}
-                size="small"
-                sx={{ color: isDark ? '#8b8b9a' : '#6b6b7b' }}
-              >
-                {mode === 'dark' ? (
-                  <LightModeIcon sx={{ fontSize: 18 }} />
-                ) : (
-                  <DarkModeIcon sx={{ fontSize: 18 }} />
-                )}
-              </IconButton>
-            </Tooltip>
-
             {isAuthenticated ? (
               <Tooltip title="Logout">
                 <IconButton
@@ -173,7 +128,9 @@ export function AppShell({ children }: PropsWithChildren) {
         </Toolbar>
       </AppBar>
 
-      <Box sx={{ flex: 1, minHeight: 0 }}>{children}</Box>
+      <Box sx={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {children}
+      </Box>
     </Box>
   )
 }

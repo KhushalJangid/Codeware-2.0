@@ -50,7 +50,7 @@ The following tools were used in this project:
 
 - [Django](https://djangoproject.com/)
 - [Python](https://python.org)
-- [Flutter](https://flutter.dev/)
+- [React](https://react.dev)
 
 
 ## :white_check_mark: Requirements ##
@@ -103,20 +103,26 @@ For Frontend:
 
 ```bash
 # Change directory
-$ cd codeware-2.0/frontend
+$ cd codeware-2.0/codeware
 
 # Resolve dependencies
-$ flutter pub get
+$ npm install
 
 # Run project
-$ flutter run
+$ npm run dev
 
 ```
 
 ## :fireworks: Screenshots ##
-<img src="./Screenshots/Screenshot1.png" alt="Codeware" />
-<img src="./Screenshots/Screenshot2.png" alt="Codeware" />
-<img src="./Screenshots/Screenshot3.png" alt="Codeware" />
+<img src="./Screenshots/Screenshot1.png" alt="Login Screen" />
+<img src="./Screenshots/Screenshot2.png" alt="Landing Screen" />
+<img src="./Screenshots/Screenshot3.png" alt="File Tab open screen" />
+<img src="./Screenshots/Screenshot4.png" alt="Light mode" />
+<img src="./Screenshots/Screenshot5.png" alt="Interactive terminal" />
+<img src="./Screenshots/Screenshot6.png" alt="New file dialog" />
+<img src="./Screenshots/Screenshot7.png" alt="Sidebar collapsed" />
+<img src="./Screenshots/Screenshot8.png" alt="Open local file" />
+<img src="./Screenshots/Screenshot9.png" alt="Run local file" />
 
 ## :memo: License ##
 
